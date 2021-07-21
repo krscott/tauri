@@ -1,5 +1,10 @@
 # Changelog
 
+## \[0.1.5]
+
+- Fix the error "cannot find type MenuHash in this scope"
+  - [226414d1](https://www.github.com/tauri-apps/tauri/commit/226414d1a588c8bc2b540a71fcd84c318319d6af) "cannot find type `MenuHash` in this scope" ([#2240](https://www.github.com/tauri-apps/tauri/pull/2240)) on 2021-07-20
+
 ## \[0.1.4]
 
 - Allow preventing window close when the user requests it.

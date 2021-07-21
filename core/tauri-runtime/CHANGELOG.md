@@ -1,5 +1,10 @@
 # Changelog
 
+## \[0.1.5]
+
+- Fixes minimum window height being used as maximum height.
+  - [e3f99165](https://www.github.com/tauri-apps/tauri/commit/e3f9916526b226866137cb663e5cafab2b6a0e01) fix(core) minHeight being used as maxHeight ([#2247](https://www.github.com/tauri-apps/tauri/pull/2247)) on 2021-07-19
+
 ## \[0.1.4]
 
 - Allow preventing window close when the user requests it.
