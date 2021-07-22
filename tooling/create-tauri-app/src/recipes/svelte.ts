@@ -8,7 +8,7 @@ import { Recipe } from '../types/recipe'
 
 const completeLogMsg = `
   Your installation completed.
-  To start, run yarn tauri:serve
+  To start, run \`yarn dev\` and \`yarn tauri dev\`
 `
 
 const svelte: Recipe = {
@@ -19,12 +19,28 @@ const svelte: Recipe = {
   shortName: 'svelte',
   extraNpmDevDependencies: [],
   extraNpmDependencies: [],
+  extraQuestions: () => {
+    return [
+      {
+        type: 'confirm',
+        name: 'typescript',
+        message: 'Enable Typescript?',
+        default: true,
+        loop: false
+      }
+    ]
+  },
   configUpdate: ({ cfg }) => ({
     ...cfg,
     distDir: `../public`,
     devPath: 'http://localhost:5000',
   }),
-  preInit: async ({ cwd, cfg }) => {
+  preInit: async ({ cwd, cfg, answers }) => {
+    let typescript = false
+    if (answers) {
+      typescript = !!answers.typescript
+    }
+
     await shell(
       'npx',
       [
@@ -35,16 +51,16 @@ const svelte: Recipe = {
       { cwd }
     )
 
-    cwd = `${cwd}/${cfg.appName}`
-
     // Add Typescript
-    await shell(
-      'node',
-      [
-        'scripts/setupTypeScript.js',
-      ],
-      { cwd }
-    )
+    if (typescript) {
+      await shell(
+        'node',
+        [
+          'scripts/setupTypeScript.js',
+        ],
+        { cwd: join(cwd, cfg.appName) }
+      )
+    }
 
   },
   postInit: async () => {
